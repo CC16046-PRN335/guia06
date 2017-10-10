@@ -23,7 +23,13 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        EntityManager em = getEntityManager();
+        try {
+           em.persist(entity); 
+        } catch (Exception e) {
+            System.out.println("ERROR: "+e);
+        }
+        
     }
 
     public void edit(T entity) {

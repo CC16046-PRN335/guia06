@@ -9,11 +9,8 @@
     </h:head>
     <h:body>
         <f:view>
-
-            
-            <h:form>
-                <h1 align="center">Tipo Seccion</h1>
-                <input type="checkbox" name="usados" value="ON" />Mostrar solamente los utilizados<br/>
+            <h:form id="frm">
+                <h1><h:outputText value="Tipo Seccion"/></h1>
                 <p:dataTable value="#{tipoSeccionBean.lista}" var="item">
                     <p:column>
                         <f:facet name="header">
@@ -43,13 +40,30 @@
             </h:form>
         </f:view>
         <br/>
-        <h:form>
-            <h:outputLabel><strong>Crear un nuevo registro</strong></h:outputLabel><br/>
-            <h:outputLabel><strong>Id</strong></h:outputLabel><h:inputText id="idtxt"/><br/>
-            <h:outputLabel><strong>Nombre</strong></h:outputLabel><h:inputText id="nombretxt"/><br/>
-        </h:form>
-    
-        
+        <f:view>
+
+            <div>
+
+                <h:form id="frmADD">
+                    <h1><h:outputText value="Agregar"/></h1>
+                    <p:panelGrid columns="2">
+                        
+                        <p:outputLabel value="Nombre:" for="nombre" />
+                        <p:inputText id="nombre" value="#{tipoSeccionBean.nuevo.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                        <p:outputLabel value="Activo:" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{usuarioBean.data.activo}" />
+                        <p:outputLabel value="Descripcion:" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{tipoSeccionBean.nuevo.descripcion}" title="Descripcion" />
+                      
+                    </p:panelGrid>
+                      <p:commandButton value="Agregar" actionListener="#{tipoSeccionBean.crear}" update="@all" />
+                </h:form>
+
+                </div>
+        </f:view>
+            
+       
+
     </h:body>
 </html>
 

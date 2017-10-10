@@ -11,25 +11,35 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import org.eclipse.persistence.jpa.jpql.parser.CollectionMemberDeclaration;
-import org.eclipse.persistence.jpa.jpql.parser.Expression;
+import javax.inject.Named;
 import sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.TipoSeccion;
 import sv.edu.uesocc.ingenieria.prn335_2017.web.controladores.TipoSeccionFacadeLocal;
-@Named
+
+@Named (value="tipoSeccionBean")
 @ViewScoped
 public class tipoSeccionBean implements Serializable{
+    
     public tipoSeccionBean() {
     }   
     
     @EJB
-    TipoSeccionFacadeLocal tipoSeccion;
-    List<TipoSeccion> lista = new ArrayList<>();
-
+     TipoSeccionFacadeLocal tipoSeccion;
+     List<TipoSeccion> lista = new ArrayList<>();
+     TipoSeccion nuevo = new TipoSeccion();
+    
     public TipoSeccionFacadeLocal getTipoSeccion() {
         return tipoSeccion;
+    }
+
+    public TipoSeccion getNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(TipoSeccion nuevo) {
+        this.nuevo = nuevo;
     }
 
     public void setTipoSeccion(TipoSeccionFacadeLocal tipoSeccion) {
@@ -43,6 +53,14 @@ public class tipoSeccionBean implements Serializable{
     public void setLista(List<TipoSeccion> lista) {
         this.lista = lista;
     }
+    
+    
+    public void showMessage(String Mensaje) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(Mensaje));
+    }
+    
+    
     @PostConstruct
     public void llenar(){
         if(lista != null){
@@ -52,5 +70,16 @@ public class tipoSeccionBean implements Serializable{
         }
     }
     
+    public void crear(){
+        try{
+            tipoSeccion.create(this.nuevo);
+            llenar();
+            showMessage("Registro realizado correctamente");
+            nuevo= new TipoSeccion();
+        }catch(Exception e){
+             System.out.println("Error: " + e);
+                showMessage("Error a la hora de ingresar los datos.");
+        }
+         }    
     
 }
