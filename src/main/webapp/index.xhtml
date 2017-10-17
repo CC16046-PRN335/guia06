@@ -11,8 +11,11 @@
         <f:view>
             <h:form id="frm">
                 <h1><h:outputText value="Tipo Seccion"/></h1>
-                <p:dataTable value="#{tipoSeccionBean.lista}" var="item">
-                    <p:column>
+                <input type="checkbox" value="activo"/>Mostrar solo los activos
+                <p:dataTable id="tblTipoSeccion" value="#{tipoSeccionBean.lista}" var="item" selectionMode="single" 
+                             paginator="true" rows="5" selection="#{tipoSeccionBean.nuevo}" rowKey="#{item.idTipoSeccion}" sortBy="#{item.idTipoSeccion}">
+                    <p:ajax update=":frmADD" event="rowSelect"></p:ajax>
+                    <p:column >
                         <f:facet name="header">
                             <h:outputText value="IdTipoSeccion"/>
                         </f:facet>
@@ -45,7 +48,8 @@
             <div>
 
                 <h:form id="frmADD">
-                    <h1><h:outputText value="Agregar"/></h1>
+                    <h1><h:outputText value="Crear/Editar"/></h1>
+                   
                     <p:panelGrid columns="2">
                         
                         <p:outputLabel value="Nombre:" for="nombre" />
@@ -56,7 +60,14 @@
                         <p:inputText id="descripcion" value="#{tipoSeccionBean.nuevo.descripcion}" title="Descripcion" />
                       
                     </p:panelGrid>
-                      <p:commandButton value="Agregar" actionListener="#{tipoSeccionBean.crear}" update="@all" />
+                    <p:panel visible="#{tipoSeccionBean.visible}">
+                    <p:commandButton id="agregar" value="Agregar" actionListener="#{tipoSeccionBean.crear}" update="@all" />
+                    <p:commandButton id="limpiar" value="Limpiar" actionListener="#{tipoSeccionBean.eliminar}"  update="@all" />
+                    </p:panel>
+                    <p:panel visible="">
+                        <p:commandButton id="editar" value="Editar" actionListener="#{tipoSeccionBean.editar}" update="@all"/>
+                        <p:commandButton id="eliminar" value="Eliminar" actionListener="#{tipoSeccionBean.eliminar}"  update="@all" />
+                    </p:panel>
                 </h:form>
 
                 </div>
