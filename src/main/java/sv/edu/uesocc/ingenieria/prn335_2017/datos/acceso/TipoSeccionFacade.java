@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.uesocc.ingenieria.prn335_2017.web.controladores;
+package sv.edu.uesocc.ingenieria.prn335_2017.datos.acceso;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Rol;
+import sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.TipoSeccion;
 
 /**
  *
  * @author j3cs
  */
 @Stateless
-public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
+public class TipoSeccionFacade extends AbstractFacade<TipoSeccion> implements TipoSeccionFacadeLocal {
 
     @PersistenceContext(unitName = "uesocc.edu.sv.ingenieria.prn335_webproject3_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
         return em;
     }
 
-    public RolFacade() {
-        super(Rol.class);
+    public TipoSeccionFacade() {
+        super(TipoSeccion.class);
     }
     
 }

@@ -14,7 +14,8 @@
                 <input type="checkbox" value="activo"/>Mostrar solo los activos
                 <p:dataTable id="tblTipoSeccion" value="#{tipoSeccionBean.lista}" var="item" selectionMode="single" 
                              paginator="true" rows="5" selection="#{tipoSeccionBean.nuevo}" rowKey="#{item.idTipoSeccion}" sortBy="#{item.idTipoSeccion}">
-                    <p:ajax update=":frmADD" event="rowSelect"></p:ajax>
+                    <p:ajax update=":frmADD" event="rowSelect" listener="#{tipoSeccionBean.onRowSelect}"/>
+                    <p:ajax event="rowUnselect" listener="#{dtSelectionView.onRowUnselect}" update=":frmADD" />
                     <p:column >
                         <f:facet name="header">
                             <h:outputText value="IdTipoSeccion"/>
@@ -60,13 +61,16 @@
                         <p:inputText id="descripcion" value="#{tipoSeccionBean.nuevo.descripcion}" title="Descripcion" />
                       
                     </p:panelGrid>
-                    <p:panel visible="#{tipoSeccionBean.visible}">
-                    <p:commandButton id="agregar" value="Agregar" actionListener="#{tipoSeccionBean.crear}" update="@all" />
-                    <p:commandButton id="limpiar" value="Limpiar" actionListener="#{tipoSeccionBean.eliminar}"  update="@all" />
+                    <p:panel visible="#{tipoSeccionBean.visible}" style="border-style: none">
+                        <p:commandButton id="agregar" value="Agregar" actionListener="#{tipoSeccionBean.crear}" update="@all" />
+                        <p:commandButton id="limpiar" value="Limpiar" actionListener="#{tipoSeccionBean.limpiar}" update="@all" />
                     </p:panel>
-                    <p:panel visible="">
-                        <p:commandButton id="editar" value="Editar" actionListener="#{tipoSeccionBean.editar}" update="@all"/>
+                    <p:panel visible="#{!tipoSeccionBean.visible}" style="border-style: none">
+                        <p:commandButton id="editar" value="Editar" actionListener="#{tipoSeccionBean.editar}" update="@all"><p:ajax listener="#{tipoSeccionBean.editar}" update="@all" /></p:commandButton>
                         <p:commandButton id="eliminar" value="Eliminar" actionListener="#{tipoSeccionBean.eliminar}"  update="@all" />
+                        <p:commandButton id="cancelar" value="Cancelar" actionListener="#{tipoSeccionBean.cancelar}"  update="@all" ><p:ajax listener="#{tipoSeccionBean.cancelar}" update="@all" /></p:commandButton>
+                            
+                        
                     </p:panel>
                 </h:form>
 

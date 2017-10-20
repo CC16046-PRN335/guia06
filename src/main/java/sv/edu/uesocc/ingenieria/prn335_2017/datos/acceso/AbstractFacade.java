@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.uesocc.ingenieria.prn335_2017.web.controladores;
+package sv.edu.uesocc.ingenieria.prn335_2017.datos.acceso;
 
 import java.util.List;
 import javax.persistence.EntityManager;
